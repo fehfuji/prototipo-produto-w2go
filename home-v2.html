@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W2GO — As melhores experiências da cidade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg-surface: #141414;
+    --bg-card: #1a1a1a;
+    --bg-card-hover: #222222;
+    --bg-elevated: #252525;
+    --border: #2a2a2a;
+    --border-hover: #3a3a3a;
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1a1;
+    --text-tertiary: #6b6b6b;
+    --green: #89EB47;
+    --green-dark: #6bc434;
+    --green-glow: rgba(137,235,71,0.15);
+    --green-subtle: rgba(137,235,71,0.08);
+    --red: #ef4444;
+    --red-bg: rgba(239,68,68,0.15);
+    --purple: #8b5cf6;
+    --purple-bg: rgba(139,92,246,0.15);
+    --orange: #f59e0b;
+    --orange-bg: rgba(245,158,11,0.15);
+    --blue: #3b82f6;
+    --blue-bg: rgba(59,130,246,0.15);
+    --pink: #ec4899;
+    --radius: 16px;
+    --radius-sm: 12px;
+    --radius-xs: 8px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.5);
+    --card-width: 280px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { text-decoration: none; color: inherit; }
+
+  /* ── Navbar ── */
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+  }
+  .nav-inner {
+    max-width: 1360px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--green); }
+  .nav-search {
+    flex: 1;
+    max-width: 440px;
+    margin: 0 32px;
+    position: relative;
+  }
+  .nav-search input {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 14px;
+    font-family: inherit;
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    transition: all .2s;
+    outline: none;
+  }
+  .nav-search input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px var(--green-glow);
+  }
+  .nav-search input::placeholder { color: var(--text-tertiary); }
+  .nav-search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary);
+  }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all .2s;
+    font-family: inherit;
+  }
+  .nav-location:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .nav-icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all .2s;
+  }
+  .nav-icon-btn:hover { background: var(--bg-card); color: var(--text-primary); }
+
+  /* ── Hero Top Picks ── */
+  .hero-picks {
+    padding: 40px 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-picks::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(137,235,71,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-header {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 24px 24px;
+  }
+  .hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+  .hero-header h1 {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.1;
+  }
+  .hero-header h1 em {
+    font-style: normal;
+    color: var(--green);
+  }
+
+  .picks-carousel {
+    position: relative;
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .picks-track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-bottom: 8px;
+  }
+  .picks-track::-webkit-scrollbar { display: none; }
+
+  .pick-card {
+    flex-shrink: 0;
+    width: 380px;
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    scroll-snap-align: start;
+    cursor: pointer;
+    display: block;
+  }
+  .pick-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    transition: transform .5s;
+  }
+  .pick-card:hover img { transform: scale(1.06); }
+  .pick-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 40%, transparent 100%);
+  }
+  .pick-number {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--green);
+    color: #0a0a0a;
+    font-size: 16px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pick-save {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .2s;
+    opacity: 0;
+  }
+  .pick-card:hover .pick-save { opacity: 1; }
+  .pick-save:hover { background: rgba(255,255,255,0.25); color: var(--red); }
+  .pick-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+  }
+  .pick-badges {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .pick-badge {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+  .pick-badge.best-price { background: var(--green); color: #0a0a0a; }
+  .pick-badge.exclusive { background: var(--purple); color: white; }
+  .pick-badge.new { background: var(--orange); color: #0a0a0a; }
+  .pick-badge.hot { background: var(--red); color: white; }
+  .pick-title {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 4px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+  .pick-venue {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .pick-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .pick-price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .pick-price strong {
+    font-size: 20px;
+    font-weight: 800;
+  }
+  .pick-price-old {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    text-decoration: line-through;
+  }
+  .pick-book {
+    padding: 8px 18px;
+    background: var(--green);
+    color: #0a0a0a;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: var(--radius-xs);
+    transition: all .2s;
+  }
+  .pick-book:hover { background: var(--green-dark); }
+
+  /* ── Categories Bar ── */
+  .categories {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 36px 24px 0;
+  }
+  .cat-scroll {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .cat-scroll::-webkit-scrollbar { display: none; }
+  .cat-chip {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all .2s;
+    font-family: inherit;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .cat-chip:hover, .cat-chip.active {
+    border-color: var(--green);
+    background: var(--green-subtle);
+    color: var(--green);
+  }
+  .cat-emoji { font-size: 18px; line-height: 1; }
+
+  /* ── Carousel Section ── */
+  .carousel-section {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 40px 24px 0;
+  }
+  .carousel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .carousel-header-left {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .carousel-header h2 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+  .carousel-count {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+  }
+  .carousel-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-ver-todos {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green);
+    padding: 6px 14px;
+    border-radius: var(--radius-xs);
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .btn-ver-todos:hover { background: var(--green-subtle); }
+  .carousel-arrow {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .2s;
+    flex-shrink: 0;
+  }
+  .carousel-arrow:hover { background: var(--bg-card-hover); color: var(--text-primary); border-color: var(--border-hover); }
+  .carousel-arrow:disabled { opacity: 0.3; cursor: default; }
+
+  .carousel-track-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+  .carousel-track {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    padding-bottom: 4px;
+  }
+  .carousel-track::-webkit-scrollbar { display: none; }
+
+  /* ── Experience Card (Carousel) ── */
+  .exp-card {
+    flex-shrink: 0;
+    width: var(--card-width);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all .25s;
+    scroll-snap-align: start;
+    display: block;
+  }
+  .exp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+    border-color: var(--border-hover);
+    background: var(--bg-card-hover);
+  }
+  .exp-img-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+  .exp-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform .35s;
+  }
+  .exp-card:hover .exp-img { transform: scale(1.05); }
+  .exp-badge-wrap {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 5px;
+  }
+  .exp-badge {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    padding: 4px 9px;
+    border-radius: 6px;
+    backdrop-filter: blur(8px);
+  }
+  .exp-badge.cat { background: rgba(255,255,255,0.12); color: white; }
+  .exp-badge.discount { background: var(--green); color: #0a0a0a; }
+  .exp-badge.urgency { background: rgba(239,68,68,0.85); color: white; }
+  .exp-save {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    border: none;
+    transition: all .2s;
+    opacity: 0;
+  }
+  .exp-card:hover .exp-save { opacity: 1; }
+  .exp-save:hover { background: rgba(0,0,0,0.6); color: var(--red); }
+  .exp-body { padding: 14px 16px 16px; }
+  .exp-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .exp-venue {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .exp-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .exp-price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .exp-price strong {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+  .exp-price-old {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    text-decoration: line-through;
+  }
+  .exp-btn {
+    padding: 7px 14px;
+    background: var(--green-subtle);
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 6px;
+    transition: all .2s;
+  }
+  .exp-btn:hover { background: var(--green); color: #0a0a0a; }
+
+  /* ── Venue Carousel ── */
+  .venue-card {
+    flex-shrink: 0;
+    width: 320px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all .25s;
+    scroll-snap-align: start;
+    display: block;
+  }
+  .venue-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+    border-color: var(--border-hover);
+  }
+  .venue-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+  }
+  .venue-body { padding: 16px; }
+  .venue-name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .venue-desc {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .venue-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .venue-location {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .venue-exp-count {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--green);
+    background: var(--green-subtle);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  /* ── CTA Banner ── */
+  .cta-banner {
+    max-width: 1360px;
+    margin: 48px auto 0;
+    padding: 0 24px;
+  }
+  .cta-inner {
+    background: linear-gradient(135deg, var(--bg-card) 0%, #1a2a14 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-inner::before {
+    content: '';
+    position: absolute;
+    right: -80px;
+    top: -80px;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+  }
+  .cta-text { position: relative; z-index: 1; }
+  .cta-text h3 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .cta-text p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 400px;
+  }
+  .cta-btn {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: var(--green);
+    color: #0a0a0a;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    transition: all .2s;
+    flex-shrink: 0;
+  }
+  .cta-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+  /* ── Footer ── */
+  .footer {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 48px 24px 32px;
+    margin-top: 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .footer-logo {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+  }
+  .footer-logo span { color: var(--green); }
+  .footer-copy { font-size: 13px; color: var(--text-tertiary); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a {
+    font-size: 13px;
+    color: var(--text-secondary);
+    transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--green); }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .nav-search { display: none; }
+    .hero-header h1 { font-size: 26px; }
+    .pick-card { width: 300px; }
+    .pick-card img { height: 260px; }
+    .pick-title { font-size: 17px; }
+    .exp-card { width: 240px; }
+    .venue-card { width: 260px; }
+    .carousel-header h2 { font-size: 18px; }
+    .carousel-arrow { display: none; }
+    .carousel-section { padding: 32px 16px 0; }
+    .categories { padding: 28px 16px 0; }
+    .cta-inner {
+      flex-direction: column;
+      text-align: center;
+      padding: 32px 24px;
+    }
+    .cta-text p { max-width: none; }
+    .footer {
+      flex-direction: column;
+      text-align: center;
+      gap: 16px;
+    }
+    .hero-header { padding: 0 16px 20px; }
+    .picks-carousel { padding: 0 16px; }
+  }
+
+  @media (max-width: 600px) {
+    .pick-card { width: 85vw; }
+    .exp-card { width: 70vw; }
+    .venue-card { width: 80vw; }
+    .hero-picks { padding: 28px 0 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ Navbar ═══ -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">W2<span>GO</span></a>
+
+    <div class="nav-search">
+      <svg class="nav-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" placeholder="Buscar experiências, locais, restaurantes...">
+    </div>
+
+    <div class="nav-right">
+      <button class="nav-location">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        São Paulo
+      </button>
+      <button class="nav-icon-btn" title="Favoritos">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      </button>
+      <button class="nav-icon-btn" title="Menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ Hero — Top Picks ═══ -->
+<section class="hero-picks">
+  <div class="hero-header">
+    <div class="hero-label">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Top Picks da Semana
+    </div>
+    <h1>As experiências mais <em>quentes</em> de São Paulo</h1>
+  </div>
+
+  <div class="picks-carousel">
+    <div class="picks-track">
+      <!-- Pick 1 -->
+      <a href="#" class="pick-card">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop" alt="">
+        <div class="pick-overlay"></div>
+        <div class="pick-number">1</div>
+        <button class="pick-save">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </button>
+        <div class="pick-content">
+          <div class="pick-badges">
+            <span class="pick-badge best-price">Melhor Preço</span>
+          </div>
+          <div class="pick-title">Jantar Degustação com Harmonização de Vinhos</div>
+          <div class="pick-venue">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Ristorante Fasano — Jardins
+          </div>
+          <div class="pick-footer">
+            <div class="pick-price">
+              <strong>R$ 189</strong>
+              <span class="pick-price-old">R$ 260</span>
+            </div>
+            <span class="pick-book">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Pick 2 -->
+      <a href="#" class="pick-card">
+        <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&h=400&fit=crop" alt="">
+        <div class="pick-overlay"></div>
+        <div class="pick-number">2</div>
+        <button class="pick-save">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </button>
+        <div class="pick-content">
+          <div class="pick-badges">
+            <span class="pick-badge exclusive">Exclusivo</span>
+          </div>
+          <div class="pick-title">Show ao Vivo + Open Bar no Rooftop</div>
+          <div class="pick-venue">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Skye Bar — Av. Paulista
+          </div>
+          <div class="pick-footer">
+            <div class="pick-price">
+              <strong>R$ 120</strong>
+            </div>
+            <span class="pick-book">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Pick 3 -->
+      <a href="#" class="pick-card">
+        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&h=400&fit=crop" alt="">
+        <div class="pick-overlay"></div>
+        <div class="pick-number">3</div>
+        <button class="pick-save">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </button>
+        <div class="pick-content">
+          <div class="pick-badges">
+            <span class="pick-badge hot">🔥 Esgotando</span>
+          </div>
+          <div class="pick-title">Workshop de Cerâmica Artesanal para Iniciantes</div>
+          <div class="pick-venue">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Ateliê Terra Viva — Vila Madalena
+          </div>
+          <div class="pick-footer">
+            <div class="pick-price">
+              <strong>R$ 85</strong>
+              <span class="pick-price-old">R$ 130</span>
+            </div>
+            <span class="pick-book">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Pick 4 -->
+      <a href="#" class="pick-card">
+        <img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=600&h=400&fit=crop" alt="">
+        <div class="pick-overlay"></div>
+        <div class="pick-number">4</div>
+        <button class="pick-save">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </button>
+        <div class="pick-content">
+          <div class="pick-badges">
+            <span class="pick-badge new">Novo</span>
+          </div>
+          <div class="pick-title">Cinema ao Ar Livre com Pipoca Gourmet</div>
+          <div class="pick-venue">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Parque Villa-Lobos — Alto de Pinheiros
+          </div>
+          <div class="pick-footer">
+            <div class="pick-price">
+              <strong>R$ 65</strong>
+            </div>
+            <span class="pick-book">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Pick 5 -->
+      <a href="#" class="pick-card">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=400&fit=crop" alt="">
+        <div class="pick-overlay"></div>
+        <div class="pick-number">5</div>
+        <button class="pick-save">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </button>
+        <div class="pick-content">
+          <div class="pick-badges">
+            <span class="pick-badge best-price">Melhor Preço</span>
+          </div>
+          <div class="pick-title">Experiência Omakase com Chef Japonês</div>
+          <div class="pick-venue">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Sushi Hiroshi — Itaim Bibi
+          </div>
+          <div class="pick-footer">
+            <div class="pick-price">
+              <strong>R$ 220</strong>
+              <span class="pick-price-old">R$ 350</span>
+            </div>
+            <span class="pick-book">Reservar</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Categories ═══ -->
+<div class="categories">
+  <div class="cat-scroll">
+    <button class="cat-chip active"><span class="cat-emoji">🔥</span> Todos</button>
+    <button class="cat-chip"><span class="cat-emoji">🍽️</span> Restaurantes</button>
+    <button class="cat-chip"><span class="cat-emoji">🍸</span> Bares</button>
+    <button class="cat-chip"><span class="cat-emoji">❤️</span> Dates</button>
+    <button class="cat-chip"><span class="cat-emoji">🎉</span> Eventos</button>
+    <button class="cat-chip"><span class="cat-emoji">🎨</span> Workshops</button>
+    <button class="cat-chip"><span class="cat-emoji">🏖️</span> Lazer</button>
+    <button class="cat-chip"><span class="cat-emoji">🎵</span> Shows</button>
+    <button class="cat-chip"><span class="cat-emoji">🧘</span> Bem-estar</button>
+    <button class="cat-chip"><span class="cat-emoji">👨‍👩‍👧</span> Família</button>
+  </div>
+</div>
+
+<!-- ═══ Carousel: Acontecendo Esta Semana ═══ -->
+<section class="carousel-section">
+  <div class="carousel-header">
+    <div class="carousel-header-left">
+      <h2>🗓️ Acontecendo Esta Semana</h2>
+      <span class="carousel-count">(12)</span>
+    </div>
+    <div class="carousel-actions">
+      <a href="#" class="btn-ver-todos">Ver todos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></a>
+      <button class="carousel-arrow" onclick="scrollCarousel(this, -1)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="carousel-arrow" onclick="scrollCarousel(this, 1)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="carousel-track-wrapper">
+    <div class="carousel-track">
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-30%</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Noite Italiana com Menu Degustação 5 Pratos</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Trattoria Bella — Moema</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 149</strong><span class="exp-price-old">R$ 210</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge cat">Bar</span><span class="exp-badge urgency">Últimas 3!</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Mixologia Molecular — Workshop + Drinks</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> SubAstor — Vila Olímpia</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 95</strong></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-25%</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Festival de Jazz ao Vivo no Jardim</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Blue Note — Jardins</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 75</strong><span class="exp-price-old">R$ 100</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge cat">Bem-estar</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Yoga ao Nascer do Sol no Parque Ibirapuera</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Espaço Zen — Ibirapuera</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 45</strong></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-40%</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Brunch All You Can Eat no Terraço</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Hotel Emiliano — Jardins</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 129</strong><span class="exp-price-old">R$ 215</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Carousel: Dates Perfeitos ═══ -->
+<section class="carousel-section">
+  <div class="carousel-header">
+    <div class="carousel-header-left">
+      <h2>❤️ Dates Perfeitos</h2>
+      <span class="carousel-count">(8)</span>
+    </div>
+    <div class="carousel-actions">
+      <a href="#" class="btn-ver-todos">Ver todos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></a>
+      <button class="carousel-arrow" onclick="scrollCarousel(this, -1)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="carousel-arrow" onclick="scrollCarousel(this, 1)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="carousel-track-wrapper">
+    <div class="carousel-track">
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1529543544282-ea26407349c2?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-20%</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Jantar à Luz de Velas com Vista para a Cidade</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Terraço Italia — Centro</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 199</strong><span class="exp-price-old">R$ 250</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge cat">Romântico</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Passeio de Barco ao Pôr do Sol + Espumante</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Marina da Glória — Guarapiranga</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 280</strong></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-35%</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Aula de Pintura a Dois com Vinho</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Art & Wine Studio — Pinheiros</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 110</strong><span class="exp-price-old">R$ 170</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge cat">Cinema</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Cinema ao Ar Livre com Piquenique Gourmet</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Fundação Maria Luisa — Itaim</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 65</strong></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge urgency">Últimas 2!</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Spa Day Casal — Massagem + Ofurô Privativo</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Namu Spa — Moema</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 340</strong></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Carousel: Restaurantes ═══ -->
+<section class="carousel-section">
+  <div class="carousel-header">
+    <div class="carousel-header-left">
+      <h2>🍽️ Restaurantes Imperdíveis</h2>
+      <span class="carousel-count">(15)</span>
+    </div>
+    <div class="carousel-actions">
+      <a href="#" class="btn-ver-todos">Ver todos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></a>
+      <button class="carousel-arrow" onclick="scrollCarousel(this, -1)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="carousel-arrow" onclick="scrollCarousel(this, 1)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="carousel-track-wrapper">
+    <div class="carousel-track">
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-30%</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Rodízio Premium de Carnes com Buffet de Saladas</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Fogo de Chão — Jardins</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 139</strong><span class="exp-price-old">R$ 199</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge cat">Japonês</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Festival de Sushi — All You Can Eat</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Kazu Sushi — Liberdade</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 89</strong></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-15%</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Pizza Napolitana com Massa de Fermentação Natural</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> A Pizza da Mooca — Mooca</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 59</strong><span class="exp-price-old">R$ 70</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge cat">Brasileiro</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Feijoada Completa com Roda de Samba</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Samba & Sabor — Vila Mariana</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 75</strong></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-25%</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Menu Chef's Table — 7 Tempos com Harmonização</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> D.O.M. — Jardins</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 450</strong><span class="exp-price-old">R$ 600</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Carousel: Bares & Drinks ═══ -->
+<section class="carousel-section">
+  <div class="carousel-header">
+    <div class="carousel-header-left">
+      <h2>🍸 Bares & Drinks</h2>
+      <span class="carousel-count">(10)</span>
+    </div>
+    <div class="carousel-actions">
+      <a href="#" class="btn-ver-todos">Ver todos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></a>
+      <button class="carousel-arrow" onclick="scrollCarousel(this, -1)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="carousel-arrow" onclick="scrollCarousel(this, 1)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="carousel-track-wrapper">
+    <div class="carousel-track">
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-35%</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Open Bar de Coquetéis Clássicos — 3 Horas</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Guilhotina Bar — Pinheiros</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 89</strong><span class="exp-price-old">R$ 140</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1575444758702-4a6b9222c016?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge cat">Speakeasy</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Experiência Speakeasy — Senha + 3 Drinks Autorais</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Ponto Secreto — Consolação</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 120</strong></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-20%</span><span class="exp-badge urgency">Últimas 5!</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Degustação de Gin com Master Bartender</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Gin House — Vila Madalena</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 79</strong><span class="exp-price-old">R$ 99</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge cat">Rooftop</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Sunset no Rooftop com DJ Set + Petiscos</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Alto Rooftop — Itaim Bibi</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 65</strong></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1525268323446-0505b6fe7778?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-40%</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Happy Hour Premium — Cerveja Artesanal à Vontade</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Brewdog — Pinheiros</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 49</strong><span class="exp-price-old">R$ 85</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Carousel: Workshops & Aprenda Algo Novo ═══ -->
+<section class="carousel-section">
+  <div class="carousel-header">
+    <div class="carousel-header-left">
+      <h2>🎨 Aprenda Algo Novo</h2>
+      <span class="carousel-count">(9)</span>
+    </div>
+    <div class="carousel-actions">
+      <a href="#" class="btn-ver-todos">Ver todos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></a>
+      <button class="carousel-arrow" onclick="scrollCarousel(this, -1)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="carousel-arrow" onclick="scrollCarousel(this, 1)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="carousel-track-wrapper">
+    <div class="carousel-track">
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-25%</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Aula de Culinária Italiana — Pasta Fresca</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Cozinha do Chef — Moema</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 150</strong><span class="exp-price-old">R$ 200</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1460518451285-97b6aa326961?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge cat">Fotografia</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Workshop de Fotografia Urbana — Luz Natural</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Foto Escola — Beco do Batman</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 95</strong></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-30%</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Workshop de Cerâmica — Crie sua Peça</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Ateliê Barro — Vila Madalena</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 85</strong><span class="exp-price-old">R$ 120</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge cat">Dança</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Aula de Salsa + Bachata para Iniciantes</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Ritmo Latino — Bela Vista</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 55</strong></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-20%</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Curso de Aquarela — Do Zero ao Primeiro Quadro</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Aquarela SP — Butantã</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 110</strong><span class="exp-price-old">R$ 140</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Carousel: Lazer & Aventura ═══ -->
+<section class="carousel-section">
+  <div class="carousel-header">
+    <div class="carousel-header-left">
+      <h2>🏖️ Lazer & Aventura</h2>
+      <span class="carousel-count">(7)</span>
+    </div>
+    <div class="carousel-actions">
+      <a href="#" class="btn-ver-todos">Ver todos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></a>
+      <button class="carousel-arrow" onclick="scrollCarousel(this, -1)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="carousel-arrow" onclick="scrollCarousel(this, 1)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="carousel-track-wrapper">
+    <div class="carousel-track">
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-30%</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Glamping com Fogueira e Observação de Estrelas</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Serra da Cantareira</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 250</strong><span class="exp-price-old">R$ 360</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1558443336-dbb3de64cdc3?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge cat">Arqueria</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Arqueria + Drinks — Experiência Viking</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Willi Willie — Pinheiros</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 85</strong></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-15%</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Passeio de Lancha pelo Litoral Norte + Snorkeling</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Marina Kanaloa — Ilhabela</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 320</strong><span class="exp-price-old">R$ 380</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge cat">Kart</span><span class="exp-badge urgency">Últimas 4!</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Corrida de Kart Indoor — Grupo até 8 Pessoas</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Speed Park — Interlagos</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 75</strong></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="exp-card">
+        <div class="exp-img-wrap">
+          <img class="exp-img" src="https://images.unsplash.com/photo-1483721310020-03333e577078?w=400&h=250&fit=crop" alt="">
+          <div class="exp-badge-wrap"><span class="exp-badge discount">-20%</span></div>
+          <button class="exp-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-title">Escalada Indoor + Rapel para Iniciantes</div>
+          <div class="exp-venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Vertical Climb — Lapa</div>
+          <div class="exp-footer">
+            <div class="exp-price"><strong>R$ 60</strong><span class="exp-price-old">R$ 75</span></div>
+            <span class="exp-btn">Reservar</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA Banner ═══ -->
+<div class="cta-banner">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h3>Tem um estabelecimento?</h3>
+      <p>Cadastre suas experiências na W2GO e alcance milhares de pessoas procurando o que fazer na cidade.</p>
+    </div>
+    <a href="#" class="cta-btn">
+      Cadastrar agora
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- ═══ Footer ═══ -->
+<footer class="footer">
+  <div class="footer-logo">W2<span>GO</span></div>
+  <span class="footer-copy">&copy; 2026 W2GO. Todos os direitos reservados.</span>
+  <div class="footer-links">
+    <a href="#">Sobre</a>
+    <a href="#">Termos</a>
+    <a href="#">Privacidade</a>
+    <a href="#">Contato</a>
+  </div>
+</footer>
+
+<script>
+  // Carousel scroll function
+  function scrollCarousel(btn, direction) {
+    const wrapper = btn.closest('.carousel-section').querySelector('.carousel-track');
+    const cardWidth = wrapper.querySelector('.exp-card, .venue-card')?.offsetWidth || 280;
+    const scrollAmount = (cardWidth + 14) * 2; // scroll 2 cards
+    wrapper.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+  }
+
+  // Category chip toggle
+  document.querySelectorAll('.cat-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+
+  // Save button toggle (heart)
+  document.querySelectorAll('.exp-save, .pick-save').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      btn.classList.toggle('saved');
+      if (btn.classList.contains('saved')) {
+        btn.style.color = '#ef4444';
+        btn.querySelector('svg').setAttribute('fill', '#ef4444');
+      } else {
+        btn.style.color = '';
+        btn.querySelector('svg').setAttribute('fill', 'none');
+      }
+    });
+  });
+</script>
+</body>
+</html>
