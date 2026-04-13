@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinema ao Ar Livre com Anne Hathaway — W2GO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafafa;
+    --white: #ffffff;
+    --black: #0a0a0a;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --green: #89EB47;
+    --green-dark: #6bc434;
+    --green-bg: #f0fde4;
+    --orange: #f59e0b;
+    --orange-bg: #fef3c7;
+    --red: #ef4444;
+    --red-bg: #fef2f2;
+    --purple: #8b5cf6;
+    --purple-bg: #f5f3ff;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --radius-xs: 8px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--gray-900);
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 100px;
+  }
+
+  /* ── Navbar ── */
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .btn-back {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--gray-500);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: var(--radius-xs);
+    transition: all .2s;
+  }
+  .btn-back:hover { background: var(--gray-100); color: var(--gray-800); }
+  .nav-logo {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--gray-900);
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--green-dark); }
+  .nav-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .nav-icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--gray-200);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .2s;
+    color: var(--gray-600);
+  }
+  .nav-icon-btn:hover { background: var(--gray-100); }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .hero-gallery {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 16px 24px 0;
+    max-height: 460px;
+  }
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform .3s;
+  }
+  .hero-img:hover { transform: scale(1.02); }
+  .hero-main { grid-row: 1 / 3; min-height: 460px; }
+  .hero-side { min-height: 228px; }
+  .gallery-overlay {
+    position: absolute;
+    bottom: 24px;
+    right: 40px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: var(--radius-xs);
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background .2s;
+  }
+  .gallery-overlay:hover { background: rgba(0,0,0,0.85); }
+
+  /* ── Main Content ── */
+  .content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 24px 0;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* ── Left Column ── */
+  .product-header {
+    margin-bottom: 24px;
+  }
+  .category-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--purple-bg);
+    color: var(--purple);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  .product-title {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--gray-900);
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+  }
+  .product-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: var(--gray-500);
+  }
+  .meta-item svg { flex-shrink: 0; }
+  .meta-link {
+    color: var(--green-dark);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .meta-link:hover { text-decoration: underline; }
+  .meta-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--gray-300);
+  }
+  .urgency-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--red-bg);
+    color: var(--red);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  /* ── Venue Card ── */
+  .venue-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    margin-bottom: 24px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .venue-card:hover { border-color: var(--gray-300); box-shadow: var(--shadow-sm); }
+  .venue-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+    flex-shrink: 0;
+  }
+  .venue-info { flex: 1; }
+  .venue-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 2px;
+  }
+  .venue-detail {
+    font-size: 13px;
+    color: var(--gray-500);
+  }
+  .venue-arrow {
+    color: var(--gray-400);
+  }
+
+  /* ── Section ── */
+  .section {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title svg { color: var(--green-dark); flex-shrink: 0; }
+
+  /* ── Includes List ── */
+  .includes-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .includes-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15px;
+    color: var(--gray-700);
+    line-height: 1.5;
+  }
+  .check-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--green-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .check-icon svg { color: var(--green-dark); }
+
+  /* ── Schedule Grid ── */
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .schedule-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px;
+    background: var(--gray-50);
+    border-radius: var(--radius-xs);
+  }
+  .schedule-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--gray-600);
+  }
+  .schedule-label {
+    font-size: 12px;
+    color: var(--gray-400);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+  .schedule-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gray-800);
+  }
+
+  /* ── Location ── */
+  .location-map {
+    width: 100%;
+    height: 160px;
+    border-radius: var(--radius-xs);
+    background: var(--gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .map-placeholder {
+    color: var(--gray-400);
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .location-address {
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+  .btn-directions {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--green-dark);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 8px;
+  }
+  .btn-directions:hover { text-decoration: underline; }
+
+  /* ── Accordion (Regras) ── */
+  .accordion {
+    border: none;
+    background: none;
+    width: 100%;
+    cursor: pointer;
+  }
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--gray-100);
+    cursor: pointer;
+  }
+  .accordion-header:hover { color: var(--green-dark); }
+  .accordion-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gray-700);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .accordion-content {
+    padding: 16px 0 8px 28px;
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.7;
+    display: none;
+  }
+  .accordion-content.open { display: block; }
+
+  /* ── Right Column — Purchase Card ── */
+  .purchase-card {
+    position: sticky;
+    top: 72px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+  }
+  .price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .price-main {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--gray-900);
+    letter-spacing: -1px;
+  }
+  .price-unit {
+    font-size: 14px;
+    color: var(--gray-400);
+    font-weight: 500;
+  }
+  .price-detail {
+    font-size: 13px;
+    color: var(--gray-500);
+    margin-bottom: 20px;
+  }
+
+  .purchase-divider {
+    height: 1px;
+    background: var(--gray-100);
+    margin: 20px 0;
+  }
+
+  .purchase-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .purchase-info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--gray-600);
+  }
+  .purchase-info-item svg { color: var(--gray-400); flex-shrink: 0; }
+
+  .btn-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+    color: var(--black);
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all .2s;
+    text-decoration: none;
+  }
+  .btn-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(137, 235, 71, 0.4);
+  }
+  .btn-cta:active { transform: translateY(0); }
+
+  .purchase-footer {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--gray-400);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+  }
+  .purchase-footer svg { color: var(--gray-300); }
+
+  /* ── Also Like ── */
+  .also-like {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding: 0 24px;
+  }
+  .also-like h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--gray-900);
+    margin-bottom: 20px;
+    letter-spacing: -0.3px;
+  }
+  .also-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .also-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all .2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .also-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+  }
+  .also-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    background: var(--gray-100);
+  }
+  .also-body {
+    padding: 14px;
+  }
+  .also-cat {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--purple);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+  }
+  .also-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .also-venue {
+    font-size: 12px;
+    color: var(--gray-400);
+    margin-bottom: 8px;
+  }
+  .also-price {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--gray-900);
+  }
+
+  /* ── Sticky Bottom Bar (Mobile) ── */
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    border-top: 1px solid var(--gray-200);
+    padding: 12px 24px;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+  }
+  .bottom-price {
+    display: flex;
+    flex-direction: column;
+  }
+  .bottom-price strong {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--gray-900);
+  }
+  .bottom-price span {
+    font-size: 12px;
+    color: var(--gray-500);
+  }
+  .btn-cta-sm {
+    padding: 12px 28px;
+    background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+    color: var(--black);
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .hero-gallery {
+      grid-template-columns: 1fr;
+      margin: 0;
+      border-radius: 0;
+      max-height: 320px;
+    }
+    .hero-main { min-height: 320px; }
+    .hero-side { display: none; }
+    .gallery-overlay { bottom: 16px; right: 16px; }
+
+    .content {
+      grid-template-columns: 1fr;
+      padding: 20px 16px 0;
+      gap: 20px;
+    }
+    .purchase-card {
+      position: relative;
+      top: auto;
+      display: none;
+    }
+    .product-title { font-size: 22px; }
+    .bottom-bar { display: flex; }
+    .schedule-grid { grid-template-columns: 1fr; }
+    .also-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .also-like { padding: 0 16px; }
+    .navbar { padding: 0 16px; }
+    .section { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ Navbar ═══ -->
+<nav class="navbar">
+  <div class="nav-left">
+    <a href="#" class="btn-back">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Voltar
+    </a>
+  </div>
+  <div class="nav-logo">W2<span>GO</span></div>
+  <div class="nav-actions">
+    <button class="nav-icon-btn" title="Compartilhar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+    </button>
+    <button class="nav-icon-btn" title="Salvar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══ Hero Gallery ═══ -->
+<div class="hero">
+  <div class="hero-gallery">
+    <img class="hero-img hero-main" src="https://umbihdxjrybisivcsrxo.supabase.co/storage/v1/object/public/products/products/b8e87164-c035-46a1-8195-ca6544bbd3b8/product_b8e87164-c035-46a1-8195-ca6544bbd3b8_0_1774147539946.jpg" alt="Cinema ao ar livre">
+    <img class="hero-img hero-side" src="https://umbihdxjrybisivcsrxo.supabase.co/storage/v1/object/public/products/products/b8e87164-c035-46a1-8195-ca6544bbd3b8/product_b8e87164-c035-46a1-8195-ca6544bbd3b8_1_1774147539946.jpg" alt="Anne Hathaway" onerror="this.src='https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&h=300&fit=crop'">
+    <img class="hero-img hero-side" src="https://umbihdxjrybisivcsrxo.supabase.co/storage/v1/object/public/products/products/b8e87164-c035-46a1-8195-ca6544bbd3b8/product_b8e87164-c035-46a1-8195-ca6544bbd3b8_2_1774147539946.jpg" alt="Drinks" onerror="this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=600&h=300&fit=crop'">
+  </div>
+  <div class="gallery-overlay">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    Ver todas as fotos
+  </div>
+</div>
+
+<!-- ═══ Main Content ═══ -->
+<div class="content">
+
+  <!-- ── Left Column ── -->
+  <div>
+    <!-- Header -->
+    <div class="product-header">
+      <span class="category-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11V4a1 1 0 011-1h4l2 3h8a1 1 0 011 1v3"/><rect x="2" y="11" width="20" height="10" rx="2"/></svg>
+        Cinema / Experiencia
+      </span>
+      <h1 class="product-title">Cinema ao Ar Livre com Anne Hathaway</h1>
+      <div class="product-meta">
+        <a href="#" class="meta-item meta-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Up Frei Caneca
+        </a>
+        <span class="meta-dot"></span>
+        <span class="meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          19h - 23h
+        </span>
+        <span class="meta-dot"></span>
+        <span class="urgency-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg>
+          Ultimas 9 unidades
+        </span>
+      </div>
+    </div>
+
+    <!-- Venue Card -->
+    <div class="venue-card">
+      <div class="venue-avatar">U</div>
+      <div class="venue-info">
+        <div class="venue-name">Up Frei Caneca</div>
+        <div class="venue-detail">Bares &middot; Frei Caneca, Sao Paulo</div>
+      </div>
+      <div class="venue-arrow">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </div>
+    </div>
+
+    <!-- O que esta incluso -->
+    <div class="section">
+      <h2 class="section-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+        O que esta incluso
+      </h2>
+      <ul class="includes-list">
+        <li>
+          <span class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
+          Reserva de mesa para 2 pessoas na area de exibicao
+        </li>
+        <li>
+          <span class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
+          O Diario da Princesa (2001) — as 19h
+        </li>
+        <li>
+          <span class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
+          O Diabo Veste Prada (2006) — as 21h
+        </li>
+        <li>
+          <span class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
+          2 drinks Cosmopolitan inclusos
+        </li>
+      </ul>
+    </div>
+
+    <!-- Quando e Onde -->
+    <div class="section">
+      <h2 class="section-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Quando e onde
+      </h2>
+      <div class="schedule-grid">
+        <div class="schedule-item">
+          <div class="schedule-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div>
+            <div class="schedule-label">Data</div>
+            <div class="schedule-value">Consultar datas</div>
+          </div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div>
+            <div class="schedule-label">Horario</div>
+            <div class="schedule-value">19h as 23h</div>
+          </div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          </div>
+          <div>
+            <div class="schedule-label">Capacidade</div>
+            <div class="schedule-value">2 pessoas por mesa</div>
+          </div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="schedule-label">Local</div>
+            <div class="schedule-value">Up Frei Caneca</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Localizacao -->
+    <div class="section">
+      <h2 class="section-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Localizacao
+      </h2>
+      <div class="location-map">
+        <div class="map-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Clique para abrir o mapa
+        </div>
+      </div>
+      <p class="location-address">R. Frei Caneca — Consolacao, Sao Paulo - SP</p>
+      <a href="#" class="btn-directions">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+        Como chegar
+      </a>
+    </div>
+
+    <!-- Regras e Informacoes -->
+    <div class="section" style="padding: 8px 24px;">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          Regras de uso
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="chevron"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="accordion-content">
+        Por ser uma exibicao de filme em area aberta, se houver mau tempo ou previsao de chuva o evento pode ser cancelado, sendo assim feito o estorno do valor pago.
+      </div>
+
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Politica de cancelamento
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="chevron"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="accordion-content">
+        Cancelamento gratuito ate 48h antes do evento. Apos esse prazo, o valor nao sera reembolsado.
+      </div>
+
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Como usar seu voucher
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="chevron"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="accordion-content">
+        Apos a compra, voce recebera um QR Code no e-mail e no app. Apresente o QR Code na entrada do evento para validacao.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Right Column — Purchase ── -->
+  <div>
+    <div class="purchase-card">
+      <div class="price-row">
+        <span class="price-main">R$ 65</span>
+        <span class="price-unit">/ por mesa</span>
+      </div>
+      <p class="price-detail">Mesa para 2 pessoas + 2 drinks inclusos</p>
+
+      <div class="purchase-divider"></div>
+
+      <div class="purchase-info">
+        <div class="purchase-info-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Escolha a data na proxima etapa
+        </div>
+        <div class="purchase-info-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+          Confirmacao imediata
+        </div>
+        <div class="purchase-info-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Pagamento seguro
+        </div>
+      </div>
+
+      <a href="#" class="btn-cta">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Reservar — R$ 65,00
+      </a>
+
+      <div class="purchase-footer">
+        <span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          Tem cupom? Aplique no checkout
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Voce tambem pode gostar ═══ -->
+<div class="also-like">
+  <h2>Mais experiencias perto de voce</h2>
+  <div class="also-grid">
+    <a href="#" class="also-card">
+      <img class="also-img" src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&h=200&fit=crop" alt="">
+      <div class="also-body">
+        <div class="also-cat">Drinks</div>
+        <div class="also-title">Noite de Coqueteis Autorais</div>
+        <div class="also-venue">SubAstor</div>
+        <div class="also-price">R$ 89</div>
+      </div>
+    </a>
+    <a href="#" class="also-card">
+      <img class="also-img" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=200&fit=crop" alt="">
+      <div class="also-body">
+        <div class="also-cat">Gastronomia</div>
+        <div class="also-title">Jantar Harmonizado</div>
+        <div class="also-venue">A Casa do Porco</div>
+        <div class="also-price">R$ 195</div>
+      </div>
+    </a>
+    <a href="#" class="also-card">
+      <img class="also-img" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=200&fit=crop" alt="">
+      <div class="also-body">
+        <div class="also-cat">Musica</div>
+        <div class="also-title">Show Acustico no Rooftop</div>
+        <div class="also-venue">Hotel Fasano</div>
+        <div class="also-price">R$ 120</div>
+      </div>
+    </a>
+    <a href="#" class="also-card">
+      <img class="also-img" src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400&h=200&fit=crop" alt="">
+      <div class="also-body">
+        <div class="also-cat">Arte</div>
+        <div class="also-title">Workshop de Pintura</div>
+        <div class="also-venue">ZIV Gallery</div>
+        <div class="also-price">R$ 150</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- ═══ Sticky Bottom Bar (Mobile) ═══ -->
+<div class="bottom-bar">
+  <div class="bottom-price">
+    <strong>R$ 65,00</strong>
+    <span>por mesa &middot; 2 pessoas</span>
+  </div>
+  <a href="#" class="btn-cta-sm">Reservar</a>
+</div>
+
+<script>
+  function toggleAccordion(header) {
+    const content = header.nextElementSibling;
+    const chevron = header.querySelector('.chevron');
+    const isOpen = content.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('open'));
+    document.querySelectorAll('.chevron').forEach(c => c.style.transform = '');
+
+    if (!isOpen) {
+      content.classList.add('open');
+      chevron.style.transform = 'rotate(180deg)';
+    }
+  }
+</script>
+
+</body>
+</html>
