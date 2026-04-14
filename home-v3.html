@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W2GO — O que fazer em São Paulo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #111;
+    --surface: #181818;
+    --card: #1c1c1c;
+    --card-hover: #242424;
+    --stroke: rgba(255,255,255,0.07);
+    --stroke-hover: rgba(255,255,255,0.14);
+    --text-1: #f5f5f5;
+    --text-2: #999;
+    --text-3: #555;
+    --accent: #89EB47;
+    --accent-dim: rgba(137,235,71,0.12);
+    --accent-hover: #78d33e;
+    --warm: #f5c542;
+    --warm-dim: rgba(245,197,66,0.12);
+    --danger: #e84545;
+    --sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+    --serif: 'DM Serif Display', Georgia, serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text-1);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  img { display: block; }
+
+  /* ============================
+     NAVBAR
+     ============================ */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(17,17,17,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--stroke);
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+  }
+  .logo { font-weight: 700; font-size: 19px; letter-spacing: -0.4px; }
+  .logo b { color: var(--accent); font-weight: 700; }
+  .nav-center {
+    position: relative; flex: 1; max-width: 380px; margin: 0 24px;
+  }
+  .nav-center input {
+    width: 100%; padding: 9px 14px 9px 36px;
+    background: var(--surface); border: 1px solid var(--stroke);
+    border-radius: 10px; color: var(--text-1); font-size: 13px;
+    font-family: inherit; outline: none; transition: border .2s;
+  }
+  .nav-center input:focus { border-color: var(--accent); }
+  .nav-center input::placeholder { color: var(--text-3); }
+  .nav-center svg {
+    position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+    color: var(--text-3);
+  }
+  .nav-actions { display: flex; gap: 6px; }
+  .nav-btn {
+    height: 34px; padding: 0 12px;
+    display: flex; align-items: center; gap: 5px;
+    border-radius: 8px; font-size: 13px; font-weight: 500;
+    color: var(--text-2); transition: all .15s;
+  }
+  .nav-btn:hover { background: var(--surface); color: var(--text-1); }
+  .nav-btn.accent {
+    background: var(--accent); color: #111; font-weight: 600;
+  }
+  .nav-btn.accent:hover { background: var(--accent-hover); }
+
+  /* ============================
+     HERO — editorial split
+     ============================ */
+  .hero {
+    max-width: 1200px; margin: 0 auto;
+    padding: 32px 20px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .hero-main {
+    position: relative; border-radius: 20px; overflow: hidden;
+    aspect-ratio: 4/3;
+  }
+  .hero-main img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 6s ease;
+  }
+  .hero-main:hover img { transform: scale(1.04); }
+  .hero-grad {
+    position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,.75) 0%, rgba(0,0,0,.15) 45%, transparent 100%);
+  }
+  .hero-main-content {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 28px;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--accent); color: #111;
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .6px; padding: 4px 10px; border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  .hero-main h1 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 32px; line-height: 1.15; letter-spacing: -.3px;
+    margin-bottom: 8px;
+  }
+  .hero-meta {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 13px; color: rgba(255,255,255,.65);
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 4px; }
+  .hero-price-tag {
+    margin-top: 14px;
+    display: inline-flex; align-items: baseline; gap: 6px;
+    background: rgba(255,255,255,.1); backdrop-filter: blur(6px);
+    padding: 8px 16px; border-radius: 10px;
+  }
+  .hero-price-tag strong { font-size: 22px; font-weight: 700; }
+  .hero-price-tag s { font-size: 14px; color: rgba(255,255,255,.4); }
+
+  .hero-side { display: flex; flex-direction: column; gap: 16px; }
+  .hero-sm {
+    position: relative; flex: 1; border-radius: 16px; overflow: hidden;
+    min-height: 0;
+  }
+  .hero-sm img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .5s;
+  }
+  .hero-sm:hover img { transform: scale(1.05); }
+  .hero-sm-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,.7) 0%, transparent 60%);
+  }
+  .hero-sm-content {
+    position: absolute; bottom: 0; padding: 16px;
+  }
+  .hero-sm-rank {
+    font-family: var(--serif); font-size: 36px;
+    color: rgba(255,255,255,.15); position: absolute;
+    top: 12px; left: 16px; line-height: 1;
+  }
+  .hero-sm h3 {
+    font-size: 15px; font-weight: 600; line-height: 1.3; margin-bottom: 3px;
+  }
+  .hero-sm .sm-venue { font-size: 12px; color: rgba(255,255,255,.55); }
+  .hero-sm .sm-price { font-size: 14px; font-weight: 700; margin-top: 4px; }
+
+  /* ============================
+     QUICK FILTERS
+     ============================ */
+  .filters {
+    max-width: 1200px; margin: 0 auto;
+    padding: 28px 20px 0;
+    display: flex; gap: 8px; overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .filters::-webkit-scrollbar { display: none; }
+  .pill {
+    flex-shrink: 0;
+    padding: 8px 16px; border-radius: 100px;
+    background: var(--surface); border: 1px solid var(--stroke);
+    font-size: 13px; font-weight: 500; color: var(--text-2);
+    transition: all .15s; white-space: nowrap;
+  }
+  .pill:hover { border-color: var(--stroke-hover); color: var(--text-1); }
+  .pill.on {
+    background: var(--text-1); color: var(--bg);
+    border-color: transparent; font-weight: 600;
+  }
+
+  /* ============================
+     SECTION (carousel wrapper)
+     ============================ */
+  .section {
+    max-width: 1200px; margin: 0 auto;
+    padding: 36px 20px 0;
+  }
+  .section-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .section-head h2 {
+    font-size: 20px; font-weight: 700; letter-spacing: -.2px;
+  }
+  .section-head h2 span {
+    font-weight: 400; font-size: 14px; color: var(--text-3); margin-left: 6px;
+  }
+  .see-all {
+    font-size: 13px; font-weight: 600; color: var(--accent);
+    display: flex; align-items: center; gap: 3px;
+    transition: opacity .15s;
+  }
+  .see-all:hover { opacity: .75; }
+
+  .rail {
+    display: flex; gap: 14px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    scrollbar-width: none; padding-bottom: 4px;
+  }
+  .rail::-webkit-scrollbar { display: none; }
+
+  /* ============================
+     CARD — standard
+     ============================ */
+  .card {
+    flex-shrink: 0; width: 264px;
+    background: var(--card); border-radius: 14px;
+    overflow: hidden; scroll-snap-align: start;
+    transition: transform .2s, box-shadow .2s;
+    display: block;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,.35);
+  }
+  .card-img {
+    position: relative; overflow: hidden;
+  }
+  .card-img img {
+    width: 100%; height: 172px; object-fit: cover;
+    transition: transform .35s;
+  }
+  .card:hover .card-img img { transform: scale(1.06); }
+
+  .card-badges {
+    position: absolute; top: 10px; left: 10px;
+    display: flex; gap: 5px;
+  }
+  .badge {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .4px; padding: 3px 8px; border-radius: 5px;
+  }
+  .badge-green { background: var(--accent); color: #111; }
+  .badge-warm { background: var(--warm); color: #111; }
+  .badge-red { background: var(--danger); color: #fff; }
+  .badge-ghost { background: rgba(255,255,255,.12); backdrop-filter: blur(6px); color: #fff; }
+
+  .card-heart {
+    position: absolute; top: 10px; right: 10px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(0,0,0,.35); backdrop-filter: blur(4px);
+    display: grid; place-items: center;
+    color: #fff; opacity: 0; transition: opacity .15s;
+  }
+  .card:hover .card-heart { opacity: 1; }
+  .card-heart:hover { color: var(--danger); }
+
+  .card-body { padding: 14px 14px 16px; }
+  .card-title {
+    font-size: 14px; font-weight: 600; line-height: 1.35;
+    display: -webkit-box; -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical; overflow: hidden;
+    margin-bottom: 4px;
+  }
+  .card-venue {
+    font-size: 12px; color: var(--text-3); margin-bottom: 8px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .card-proof {
+    font-size: 11px; color: var(--text-3); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .card-proof .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-3); }
+  .stars { color: var(--warm); letter-spacing: -1px; }
+  .card-bottom {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .card-price strong { font-size: 16px; font-weight: 700; }
+  .card-price s { font-size: 12px; color: var(--text-3); margin-left: 4px; }
+  .card-cta {
+    padding: 6px 14px; border-radius: 8px;
+    background: var(--accent-dim); color: var(--accent);
+    font-size: 12px; font-weight: 600; transition: all .15s;
+  }
+  .card-cta:hover { background: var(--accent); color: #111; }
+
+  /* ============================
+     COLLECTION ROW — editorial break
+     ============================ */
+  .collection {
+    max-width: 1200px; margin: 0 auto;
+    padding: 40px 20px 0;
+  }
+  .collection-head {
+    margin-bottom: 16px;
+  }
+  .collection-head h2 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 26px; letter-spacing: -.3px;
+  }
+  .collection-head p {
+    font-size: 14px; color: var(--text-2); margin-top: 4px;
+  }
+  .col-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .col-card {
+    position: relative; border-radius: 16px; overflow: hidden;
+    aspect-ratio: 3/2; display: block;
+  }
+  .col-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .5s;
+  }
+  .col-card:hover img { transform: scale(1.05); }
+  .col-card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.1) 50%, transparent);
+  }
+  .col-card-body {
+    position: absolute; bottom: 0; padding: 18px;
+  }
+  .col-card-body h3 {
+    font-size: 16px; font-weight: 700; line-height: 1.25; margin-bottom: 3px;
+  }
+  .col-card-body .cc-sub {
+    font-size: 12px; color: rgba(255,255,255,.55);
+  }
+  .col-card-body .cc-price {
+    margin-top: 6px; font-size: 15px; font-weight: 700;
+  }
+  .col-card .col-badge {
+    position: absolute; top: 12px; left: 12px;
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .5px; padding: 4px 10px; border-radius: 6px;
+    background: var(--accent); color: #111;
+  }
+
+  /* ============================
+     SOCIAL PROOF STRIP
+     ============================ */
+  .proof-strip {
+    max-width: 1200px; margin: 0 auto;
+    padding: 36px 20px 0;
+    display: flex; gap: 32px; justify-content: center;
+    flex-wrap: wrap;
+  }
+  .proof-item {
+    text-align: center;
+  }
+  .proof-item strong {
+    display: block; font-size: 28px; font-weight: 700;
+    letter-spacing: -1px;
+  }
+  .proof-item strong em {
+    font-style: normal; color: var(--accent);
+  }
+  .proof-item span {
+    font-size: 12px; color: var(--text-3); text-transform: uppercase;
+    letter-spacing: .5px; font-weight: 500;
+  }
+
+  /* ============================
+     CTA
+     ============================ */
+  .cta-section {
+    max-width: 1200px; margin: 48px auto 0;
+    padding: 0 20px;
+  }
+  .cta-box {
+    background: var(--surface); border: 1px solid var(--stroke);
+    border-radius: 20px; padding: 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px;
+  }
+  .cta-box h3 { font-size: 22px; font-weight: 700; letter-spacing: -.2px; }
+  .cta-box p { color: var(--text-2); font-size: 14px; margin-top: 4px; max-width: 380px; }
+  .cta-button {
+    padding: 12px 24px; border-radius: 10px;
+    background: var(--accent); color: #111;
+    font-size: 14px; font-weight: 700; flex-shrink: 0;
+    transition: background .15s;
+  }
+  .cta-button:hover { background: var(--accent-hover); }
+
+  /* ============================
+     FOOTER
+     ============================ */
+  .foot {
+    max-width: 1200px; margin: 0 auto;
+    padding: 40px 20px 28px;
+    margin-top: 48px;
+    border-top: 1px solid var(--stroke);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .foot-brand { font-weight: 700; font-size: 16px; }
+  .foot-brand b { color: var(--accent); }
+  .foot-copy { font-size: 12px; color: var(--text-3); }
+  .foot-links { display: flex; gap: 20px; }
+  .foot-links a { font-size: 12px; color: var(--text-2); transition: color .15s; }
+  .foot-links a:hover { color: var(--accent); }
+
+  /* ============================
+     RESPONSIVE
+     ============================ */
+  @media (max-width: 900px) {
+    .nav-center { display: none; }
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 16px 12px 0;
+    }
+    .hero-main { aspect-ratio: 16/10; border-radius: 16px; }
+    .hero-main h1 { font-size: 24px; }
+    .hero-main-content { padding: 20px; }
+    .hero-side { flex-direction: row; }
+    .hero-sm { border-radius: 12px; min-height: 140px; }
+    .hero-sm-rank { font-size: 24px; }
+    .hero-sm h3 { font-size: 13px; }
+    .filters { padding: 20px 12px 0; }
+    .section { padding: 28px 12px 0; }
+    .section-head h2 { font-size: 17px; }
+    .card { width: 220px; }
+    .card-img img { height: 148px; }
+    .collection { padding: 32px 12px 0; }
+    .col-grid { grid-template-columns: 1fr; }
+    .col-card { aspect-ratio: 16/9; }
+    .collection-head h2 { font-size: 22px; }
+    .proof-strip { gap: 20px; padding: 28px 12px 0; }
+    .proof-item strong { font-size: 22px; }
+    .cta-box {
+      flex-direction: column; text-align: center;
+      padding: 28px 20px;
+    }
+    .cta-box p { max-width: none; }
+    .foot { flex-direction: column; text-align: center; }
+  }
+
+  @media (max-width: 520px) {
+    .hero-side { flex-direction: column; }
+    .hero-sm { min-height: 160px; }
+    .card { width: 75vw; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">w2<b>go</b></a>
+    <div class="nav-center">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" placeholder="Buscar experiências em São Paulo...">
+    </div>
+    <div class="nav-actions">
+      <button class="nav-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        São Paulo
+      </button>
+      <button class="nav-btn">Entrar</button>
+      <button class="nav-btn accent">Cadastrar</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <a href="#" class="hero-main">
+    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&h=600&fit=crop" alt="">
+    <div class="hero-grad"></div>
+    <div class="hero-main-content">
+      <div class="hero-tag">Destaque da semana</div>
+      <h1>Jantar degustação com harmonização no Fasano</h1>
+      <div class="hero-meta">
+        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Jardins</span>
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span>142 reservas</span>
+      </div>
+      <div class="hero-price-tag">
+        <strong>R$ 189</strong>
+        <s>R$ 260</s>
+      </div>
+    </div>
+  </a>
+
+  <div class="hero-side">
+    <a href="#" class="hero-sm">
+      <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=500&h=300&fit=crop" alt="">
+      <div class="hero-sm-overlay"></div>
+      <div class="hero-sm-rank">02</div>
+      <div class="hero-sm-content">
+        <h3>Show ao vivo + open bar no rooftop</h3>
+        <div class="sm-venue">Skye Bar — Paulista</div>
+        <div class="sm-price">R$ 120</div>
+      </div>
+    </a>
+    <a href="#" class="hero-sm">
+      <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=500&h=300&fit=crop" alt="">
+      <div class="hero-sm-overlay"></div>
+      <div class="hero-sm-rank">03</div>
+      <div class="hero-sm-content">
+        <h3>Aula de cozinha italiana com chef</h3>
+        <div class="sm-venue">Cozinha do Chef — Moema</div>
+        <div class="sm-price">R$ 150 <s style="color:rgba(255,255,255,.35);font-size:12px">R$ 200</s></div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<div class="filters">
+  <button class="pill on">Tudo</button>
+  <button class="pill">Restaurantes</button>
+  <button class="pill">Bares</button>
+  <button class="pill">Dates</button>
+  <button class="pill">Eventos</button>
+  <button class="pill">Workshops</button>
+  <button class="pill">Lazer</button>
+  <button class="pill">Shows</button>
+  <button class="pill">Bem-estar</button>
+</div>
+
+<!-- SOCIAL PROOF -->
+<div class="proof-strip">
+  <div class="proof-item"><strong>2.400<em>+</em></strong><span>Reservas este mês</span></div>
+  <div class="proof-item"><strong>180<em>+</em></strong><span>Experiências ativas</span></div>
+  <div class="proof-item"><strong>4,8</strong><span>Nota média</span></div>
+  <div class="proof-item"><strong>92<em>%</em></strong><span>Recomendariam</span></div>
+</div>
+
+<!-- CAROUSEL: Esta semana -->
+<section class="section">
+  <div class="section-head">
+    <h2>Acontecendo esta semana <span>12</span></h2>
+    <a href="#" class="see-all">Ver todos <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></a>
+  </div>
+  <div class="rail">
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-green">-30%</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Noite italiana com menu degustação 5 pratos</div>
+        <div class="card-venue">Trattoria Bella — Moema</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 87 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 149</strong><s>R$ 210</s></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-red">Últimas 3</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Mixologia molecular — workshop + drinks</div>
+        <div class="card-venue">SubAstor — Vila Olímpia</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 34 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 95</strong></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-green">-25%</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Festival de jazz ao vivo no jardim</div>
+        <div class="card-venue">Blue Note — Jardins</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 56 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 75</strong><s>R$ 100</s></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-ghost">Bem-estar</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Yoga ao nascer do sol no Ibirapuera</div>
+        <div class="card-venue">Espaço Zen — Ibirapuera</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 203 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 45</strong></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-green">-40%</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Brunch all-you-can-eat no terraço</div>
+        <div class="card-venue">Hotel Emiliano — Jardins</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 118 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 129</strong><s>R$ 215</s></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- COLLECTION: Dates -->
+<section class="collection">
+  <div class="collection-head">
+    <h2>Para um date inesquecível</h2>
+    <p>As experiências mais reservadas por casais em São Paulo.</p>
+  </div>
+  <div class="col-grid">
+    <a href="#" class="col-card">
+      <img src="https://images.unsplash.com/photo-1529543544282-ea26407349c2?w=500&h=340&fit=crop" alt="">
+      <div class="col-card-overlay"></div>
+      <span class="col-badge">-20%</span>
+      <div class="col-card-body">
+        <h3>Jantar à luz de velas com vista para a cidade</h3>
+        <div class="cc-sub">Terraço Italia — Centro</div>
+        <div class="cc-price">R$ 199 <s style="color:rgba(255,255,255,.35);font-size:12px">R$ 250</s></div>
+      </div>
+    </a>
+    <a href="#" class="col-card">
+      <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?w=500&h=340&fit=crop" alt="">
+      <div class="col-card-overlay"></div>
+      <div class="col-card-body">
+        <h3>Passeio de barco ao pôr do sol com espumante</h3>
+        <div class="cc-sub">Marina da Glória — Guarapiranga</div>
+        <div class="cc-price">R$ 280</div>
+      </div>
+    </a>
+    <a href="#" class="col-card">
+      <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&h=340&fit=crop" alt="">
+      <div class="col-card-overlay"></div>
+      <span class="col-badge">Novo</span>
+      <div class="col-card-body">
+        <h3>Cinema ao ar livre com piquenique gourmet</h3>
+        <div class="cc-sub">Fundação Maria Luisa — Itaim</div>
+        <div class="cc-price">R$ 65</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- CAROUSEL: Restaurantes -->
+<section class="section">
+  <div class="section-head">
+    <h2>Restaurantes <span>15</span></h2>
+    <a href="#" class="see-all">Ver todos <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></a>
+  </div>
+  <div class="rail">
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-green">-30%</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Rodízio premium de carnes com buffet</div>
+        <div class="card-venue">Fogo de Chão — Jardins</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 312 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 139</strong><s>R$ 199</s></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-ghost">Japonês</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Festival de sushi — all-you-can-eat</div>
+        <div class="card-venue">Kazu Sushi — Liberdade</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 178 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 89</strong></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-green">-15%</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Pizza napolitana artesanal com massa fresca</div>
+        <div class="card-venue">A Pizza da Mooca — Mooca</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 95 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 59</strong><s>R$ 70</s></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-warm">Exclusivo</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Chef's table — 7 tempos com harmonização</div>
+        <div class="card-venue">D.O.M. — Jardins</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 64 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 450</strong><s>R$ 600</s></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-ghost">Brasileiro</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Feijoada completa com roda de samba</div>
+        <div class="card-venue">Samba & Sabor — Vila Mariana</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 241 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 75</strong></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- CAROUSEL: Bares -->
+<section class="section">
+  <div class="section-head">
+    <h2>Bares & drinks <span>10</span></h2>
+    <a href="#" class="see-all">Ver todos <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></a>
+  </div>
+  <div class="rail">
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-green">-35%</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Open bar de coquetéis clássicos — 3h</div>
+        <div class="card-venue">Guilhotina Bar — Pinheiros</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 156 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 89</strong><s>R$ 140</s></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1575444758702-4a6b9222c016?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-warm">Exclusivo</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Speakeasy — senha secreta + 3 drinks autorais</div>
+        <div class="card-venue">Ponto Secreto — Consolação</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 89 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 120</strong></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-green">-20%</span><span class="badge badge-red">Últimas 5</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Degustação de gin com master bartender</div>
+        <div class="card-venue">Gin House — Vila Madalena</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 72 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 79</strong><s>R$ 99</s></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-ghost">Rooftop</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Sunset no rooftop com DJ set + petiscos</div>
+        <div class="card-venue">Alto Rooftop — Itaim Bibi</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 198 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 65</strong></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- CAROUSEL: Lazer -->
+<section class="section">
+  <div class="section-head">
+    <h2>Lazer & aventura <span>7</span></h2>
+    <a href="#" class="see-all">Ver todos <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></a>
+  </div>
+  <div class="rail">
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-green">-30%</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Glamping com fogueira e observação de estrelas</div>
+        <div class="card-venue">Serra da Cantareira</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 67 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 250</strong><s>R$ 360</s></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1558443336-dbb3de64cdc3?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-ghost">Arqueria</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Arqueria + drinks — experiência viking</div>
+        <div class="card-venue">Willi Willie — Pinheiros</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 445 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 85</strong></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-green">-15%</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Passeio de lancha pelo litoral norte</div>
+        <div class="card-venue">Marina Kanaloa — Ilhabela</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 53 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 320</strong><s>R$ 380</s></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=400&h=260&fit=crop" alt="">
+        <div class="card-badges"><span class="badge badge-red">Últimas 4</span></div>
+        <button class="card-heart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Corrida de kart indoor — grupo até 8</div>
+        <div class="card-venue">Speed Park — Interlagos</div>
+        <div class="card-proof"><span class="stars">&#9733;&#9733;&#9733;&#9733;</span> <span class="dot"></span> 289 reservas</div>
+        <div class="card-bottom">
+          <div class="card-price"><strong>R$ 75</strong></div>
+          <span class="card-cta">Reservar</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-box">
+    <div>
+      <h3>Tem um estabelecimento?</h3>
+      <p>Cadastre suas experiências e alcance milhares de pessoas que procuram o que fazer na cidade.</p>
+    </div>
+    <a href="#" class="cta-button">Comece agora</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="foot-brand">w2<b>go</b></div>
+  <span class="foot-copy">&copy; 2026 W2GO. Todos os direitos reservados.</span>
+  <div class="foot-links">
+    <a href="#">Sobre</a>
+    <a href="#">Termos</a>
+    <a href="#">Privacidade</a>
+    <a href="#">Contato</a>
+  </div>
+</footer>
+
+<script>
+// Filter pills
+document.querySelectorAll('.pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('.pill').forEach(x => x.classList.remove('on'));
+    p.classList.add('on');
+  });
+});
+
+// Heart toggle
+document.querySelectorAll('.card-heart').forEach(h => {
+  h.addEventListener('click', e => {
+    e.preventDefault(); e.stopPropagation();
+    const svg = h.querySelector('svg path');
+    const on = h.dataset.on === '1';
+    h.dataset.on = on ? '0' : '1';
+    svg.setAttribute('fill', on ? 'none' : '#e84545');
+    h.style.color = on ? '#fff' : '#e84545';
+    h.style.opacity = on ? '' : '1';
+  });
+});
+</script>
+</body>
+</html>
